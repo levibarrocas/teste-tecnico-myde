@@ -12,7 +12,21 @@ from app.webhooks.endpoints import router as webhooks_router
 from app.tenants.models import Tenant
 from app.proposals.models import Proposal
 
-app = FastAPI(title="Credit Proposal API")
+description = """
+API desenvolvida para o teste técnico, responsável pelo gerenciamento de propostas de crédito. 🚀
+
+## Funcionalidades
+* **Autenticação**: Controle de acesso via tokens JWT e isolamento de Multi-Tenancy.
+* **Clientes**: Cadastro e listagem com validação estrita de CPF.
+* **Propostas**: Simulação, integração assíncrona via filas SQS e envio de propostas.
+* **Webhooks**: Recepção de callbacks do banco com processamento seguro e idempotente.
+"""
+
+app = FastAPI(
+    title="Credit Proposal API",
+    description=description,
+    version="1.0.0"
+)
 
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)

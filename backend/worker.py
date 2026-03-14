@@ -16,8 +16,9 @@ from app.users.models import User # Import the User model
 from app.core.sqs import get_sqs_client
 from app.core.config import settings
 from app.core.bank import BankClient
+from app.core.logger import setup_logging
 
-logging.basicConfig(level=logging.INFO)
+setup_logging()
 logger = logging.getLogger(__name__)
 
 async def process_proposal(proposal_id: str):

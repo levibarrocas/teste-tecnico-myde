@@ -50,10 +50,10 @@ docker-compose exec backend-api pytest
 - [x] Testes unitários e de integração
 
 ### Diferenciais
-- [x] Testes de integração
+- [x] Testes de integração 
 - [x] Dockerfile para a API
-- [ ] Logs estruturados
-- [ ] Documentação Swagger/OpenAPI customizada
+- [x] Logs estruturados
+- [x] Documentação Swagger/OpenAPI customizada
 - [x] Tratamento de idempotência no webhook
 - [x] Rate limiting
 - [x] Validação de CPF
