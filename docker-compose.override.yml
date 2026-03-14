@@ -1,24 +1,22 @@
-version: "3.8"
-
 services:
   backend-api:
     build:
       context: ./backend
       dockerfile: Dockerfile
     container_name: teste-tecnico-api
-    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/teste_tecnico
-      - AWS_REGION=us-east-1
-      - AWS_ACCESS_KEY_ID=test
-      - AWS_SECRET_ACCESS_KEY=test
-      - SQS_ENDPOINT_URL=http://localstack:4566
-      - SQS_QUEUE_NAME=proposals-queue
-      - MOCK_BANK_URL=http://mock-bank:8001
+      DATABASE_URL: "postgresql+asyncpg://postgres:postgres@postgres:5432/teste_tecnico"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "test"
+      AWS_SECRET_ACCESS_KEY: "test"
+      SQS_ENDPOINT_URL: "http://localstack:4566"
+      SQS_QUEUE_NAME: "proposals-queue"
+      MOCK_BANK_URL: "http://mock-bank:8001"
     depends_on:
       postgres:
         condition: service_healthy
@@ -34,13 +32,13 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/teste_tecnico
-      - AWS_REGION=us-east-1
-      - AWS_ACCESS_KEY_ID=test
-      - AWS_SECRET_ACCESS_KEY=test
-      - SQS_ENDPOINT_URL=http://localstack:4566
-      - SQS_QUEUE_NAME=proposals-queue
-      - MOCK_BANK_URL=http://mock-bank:8001
+      DATABASE_URL: "postgresql+asyncpg://postgres:postgres@postgres:5432/teste_tecnico"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: "test"
+      AWS_SECRET_ACCESS_KEY: "test"
+      SQS_ENDPOINT_URL: "http://localstack:4566"
+      SQS_QUEUE_NAME: "proposals-queue"
+      MOCK_BANK_URL: "http://mock-bank:8001"
     depends_on:
       backend-api:
         condition: service_started

@@ -40,15 +40,17 @@ async def test_tenant_data_isolation(client, auth_headers):
 
     # 2. Create a new Tenant B and User B in the database
     async with AsyncSessionLocal() as session:
-        tenant_b = Tenant(name="Tenant B", document="98765432000199")
+        unique_suffix = str(uuid.uuid4())[:8]
+        tenant_b = Tenant(name=f"Tenant B {unique_suffix}", document=str(random.randint(10**13, 10**14 - 1)))
         session.add(tenant_b)
         await session.commit()
         await session.refresh(tenant_b)
 
+        user_email = f"user_{unique_suffix}@tenantb.com"
         user_b = User(
             tenant_id=tenant_b.id,
             name="User B",
-            email="user@tenantb.com",
+            email=user_email,
             password_hash=get_password_hash("password123"),
             role="admin",
             is_active=True
@@ -58,7 +60,7 @@ async def test_tenant_data_isolation(client, auth_headers):
 
     # 3. Login as User B
     login_res = await client.post("/auth/login", json={
-        "email": "user@tenantb.com",
+        "email": user_email,
         "password": "password123"
     })
     assert login_res.status_code == 200
