@@ -10,8 +10,6 @@ from app.database import get_db
 from app.core.config import settings
 from app.users.models import User
 
-# This tells FastAPI that the token is expected in the "Authorization" header
-# It also helps Swagger UI know where to send the credentials (URL)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 async def get_current_user(

@@ -21,14 +21,14 @@ if config.config_file_name is not None:
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.models import Base
-from app.database import DATABASE_URL
+from app.core.config import settings  # Import settings directly
 from app.tenants.models import Tenant  # Import all models here to register them
 from app.users.models import User
 from app.clients.models import Client
 from app.proposals.models import Proposal
 
 # 2. Override the alembic.ini URL with our code's URL and set metadata
-config.set_main_option("sqlalchemy.url", DATABASE_URL)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 target_metadata = Base.metadata
 

@@ -11,7 +11,6 @@ async def test_create_client_invalid_cpf(client, auth_headers):
     }
     response = await client.post("/api/clients/", json=payload, headers=auth_headers)
     assert response.status_code == 422
-    # Pydantic v2 usually returns "Value error, Invalid CPF" in the message
     assert "Invalid CPF" in response.text
 
     # 2. Test All Digits Equal (Known invalid pattern)
